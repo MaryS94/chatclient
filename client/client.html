@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- import the websocket client library. You can code websockets from scratch
+         but we will just import a library. In this case we are using socket.io which is 
+         one of the most popular and feature rich websocket libraries.
+         
+         You can point the src for the script to any host online, but
+         by default the socket.io nodejs library will host the client library
+         online at your node.js address under /socket.io/socket.io.js 
+         You can disable that on the server if desired
+    -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script type="text/babel">
+    	const connectSocket = (e) =>{
+    		var message = document.querySelector("#message").value;
+    		var chat = document.querySelector("#chat");
+    		var userCount = document.querySelector("#userCount");
+    		var names = document.querySelector("#names");
+    		var connect = document.querySelector("#connect").disabled = true;
+
+    		var socket = io.connect();
+
+    		socket.on('connect', (data)=> {
+    			console.log('connecting');
+
+    			let user = document.querySelector("#username").value;
+
+    			if(!user){
+    				user = 'unknown';
+    			}
+
+    			socket.emit('join', { name: user });
+
+
+    		});
+
+    		socket.on('msg',(data) => {
+
+    			if(!message){
+    				message = '';
+    			}
+
+    			socket.emit('msg', { msg: message});
+
+    			chat.value+= '\n' + data.name + ': ' + data.msg;
+
+    			console.log(data);
+    		});
+
+    		socket.on('updateUsers', (data)=>{
+
+    		    names.innerHTML ='';
+
+    			userCount.textContent = data.uc;
+    			var users = data.un;
+
+    			for(var i = 0; i < data.uc; i++){
+    				names.innerHTML += '<br>' + users[i];
+    			}
+    		});
+
+    		socket.on('changeColor', (data)=>{
+    			document.body.style.backgroundColor = data.color;
+    		});
+
+    	};
+
+    	const sendSocket = (e) =>{
+    		var socket = io();
+    		var message = document.querySelector("#message").value;
+    		var chat = document.querySelector("#chat");
+			let user = document.querySelector("#username").value;
+
+			if(!user){
+				alert("please enter a username");
+			}
+			if(!message){
+				message = '??';
+			}
+
+			if(message == "pink" || message == "blue" || message == "white"){
+				socket.emit('changeColor', {color:message});
+				socket.emit('msgToServer', {name:user, msg:' REDECORATED!'})
+			}
+			else{
+				socket.emit('msgToServer', {name:user, msg:message});
+			}
+
+
+			
+    	}
+    	
+    	const init = () => {
+    		const connect = document.querySelector("#connect");
+    		connect.addEventListener('click', connectSocket);
+
+    		const send = document.querySelector("#send");
+    		send.addEventListener('click', sendSocket);
+    	};
+
+
+    	window.onload = init;
+
+    </script>
+
+
+	<style>
+		textarea {
+			display: block;
+			background-color: #EEEEEE;
+		}
+	</style>
+</head>
+<body>
+	<label for="user">Username:</label>
+	<input id="username" name="user" type="text"/>
+	<input id="connect" type='button' value='connect'/>
+	</br>
+	<label for="message">Message:</label>
+	<input id="message" name="message" type="text"/>
+	<input id="send" type="button" value="send" />
+	
+	<textarea id="chat" rows="20" cols="40" readonly> </textarea>
+	<p><b>Try This!!!</b> Type blue, pink, or white to change the room color</p>
+	<p><b>Users Online:</b> <span id="userCount"></span><span id="names"></span></p>
+</body>
+</html>
