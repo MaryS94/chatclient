@@ -1,16 +1,47 @@
-{
-  "name": "chatserver",
+ "name": "Websocket Chat Server",
+
   "version": "1.0.0",
-  "description": "chatserver",
-  "main": "index.js",
-  "chatclient":"git://github.com/MaryS94/chatclient.git#master",
-  "scripts": {
-    "start":"node ./src/server.js",
-    "test": "echo \"Tests complete\""
+
+  "engines": {
+
+    "node": "6.5.0"
+
   },
-  "keywords": [
-    "chatserver"
-  ],
-  "author": "mary spencer",
-  "license": "ISC"
-}
+
+  "description": "chat client",
+
+  "main": "./src/server.js",
+
+  "scripts": {
+
+    "start": "node ./src/server.js",
+
+    "pretest": "eslint ./src/ --fix",
+
+    "test": "echo \"Tests complete\""
+
+  },
+
+  "author": "Mary Spencer",
+
+  "license": "ISC",
+
+  "devDependencies": {
+
+    "eslint": "^3.4.0",
+
+    "eslint-config-airbnb": "^11.0.0",
+
+    "eslint-plugin-import": "^1.14.0",
+
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+
+    "eslint-plugin-react": "^6.2.0"
+
+  },
+
+  "dependencies": {
+
+    "socket.io": "^1.4.8"
+
+  }
