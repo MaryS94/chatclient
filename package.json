@@ -1,47 +1,49 @@
- "name": "Websocket Chat Server",
+{
+	"name": "Websocket Chat Server",
 
-  "version": "1.0.0",
+	"version": "1.0.0",
 
-  "engines": {
+	"engines": {
 
-    "node": "6.5.0"
+		"node": "6.5.0"
 
-  },
+	},
 
-  "description": "chat client",
+	"description": "chat client",
 
-  "main": "./src/server.js",
+	"main": "./src/server.js",
 
-  "scripts": {
+	"scripts": {
 
-    "start": "node ./src/server.js",
+		"start": "node ./src/server.js",
 
-    "pretest": "eslint ./src/ --fix",
+		"pretest": "eslint ./src/ --fix",
 
-    "test": "echo \"Tests complete\""
+		"test": "echo \"Tests complete\""
 
-  },
+	},
 
-  "author": "Mary Spencer",
+	"author": "Mary Spencer",
 
-  "license": "ISC",
+	"license": "ISC",
 
-  "devDependencies": {
+	"devDependencies": {
 
-    "eslint": "^3.4.0",
+		"eslint": "^3.4.0",
 
-    "eslint-config-airbnb": "^11.0.0",
+		"eslint-config-airbnb": "^11.0.0",
 
-    "eslint-plugin-import": "^1.14.0",
+		"eslint-plugin-import": "^1.14.0",
 
-    "eslint-plugin-jsx-a11y": "^2.2.1",
+		"eslint-plugin-jsx-a11y": "^2.2.1",
 
-    "eslint-plugin-react": "^6.2.0"
+		"eslint-plugin-react": "^6.2.0"
 
-  },
+	},
 
-  "dependencies": {
+	"dependencies": {
 
-    "socket.io": "^1.4.8"
+		"socket.io": "^1.4.8"
 
-  }
+	}
+}
